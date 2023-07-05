@@ -10,7 +10,7 @@ property_providers:
 driver_options:
   mitamae:
     mitamae_path: /usr/local/bin/mitamae
-    mitamae_options: ["--log-level", "info"]
+    mitamae_options: ["--log-level", "debug"]
     mitamae_prepare_script: |
       curl -L -o /tmp/orash.sh https://raw.githubusercontent.com/tosuke-homelab/mitamae-build/main/tools/orash.sh &&
       bash /tmp/orash.sh ghcr.io/tosuke-homelab/mitamae@sha256:4da74dde5fa5fd24ade21f33646337ddf2059c08f0b5f49048355d856bd46321 &&

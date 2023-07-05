@@ -1,0 +1,17 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 30s
+
+scrape_configs:
+  - job_name: node
+    proxy_from_environment: true
+    static_configs:
+      - targets:
+          - "host.containers.internal:9100"
+          - "border:9100"
+    relabel_configs:
+      - source_labels: [__address__]
+        regex: 'host.containers.internal:(\d+)'
+        replacement: "nono:$1"
+        target_label: instance
+    
