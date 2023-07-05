@@ -12,19 +12,11 @@ driver_options:
     mitamae_path: /usr/local/bin/mitamae
     mitamae_options: ["--log-level", "info"]
     mitamae_prepare_script: |
-      case $(uname -sm) in
-      "Linux x86_64")
-        target="x86_64-linux"
-        hash="318968af9995c83929a5aedd3216e9c4ecb14db2e53340efaac4444ff5e18bde"
-        ;;
-      *)
-        echo "Error: Unsupported platform"
-        exit 1
-        ;;
-      esac
-      uri="https://github.com/itamae-kitchen/mitamae/releases/download/v1.14.0/mitamae-${target}"
-      curl -L "$uri" -o /tmp/mitamae &&
-      echo "$hash  /tmp/mitamae" | shasum -a 256 -c &&
-      mv /tmp/mitamae /usr/local/bin/mitamae &&
+      curl -L -o /tmp/orash.sh https://raw.githubusercontent.com/tosuke-homelab/mitamae-build/main/tools/orash.sh &&
+      bash /tmp/orash.sh ghcr.io/tosuke-homelab/mitamae@sha256:4da74dde5fa5fd24ade21f33646337ddf2059c08f0b5f49048355d856bd46321 &&
+      mkdir -p /usr/local/bin &&
+      tar -xvf mitamae.tar.gz &&
+      rm mitamae.tar.gz &&
+      mv mitamae /usr/local/bin/mitamae &&
       chmod +x /usr/local/bin/mitamae
 
