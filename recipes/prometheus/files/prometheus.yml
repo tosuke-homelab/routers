@@ -7,8 +7,8 @@ scrape_configs:
     proxy_from_environment: true
     static_configs:
       - targets:
-          - "host.containers.internal:9100"
-          - "border:9100"
+        - "host.containers.internal:9100"
+        - "border:9100"
     relabel_configs:
       - source_labels: [__address__]
         regex: 'host.containers.internal:(\d+)'
