@@ -1,0 +1,11 @@
+
+dbs:
+  - path: /grafana/grafana.db
+    replicas:
+      - type: s3
+        endpoint: https://f13bb05c5e6c0e7e21e45494613ce769.r2.cloudflarestorage.com
+        bucket: grafana-ls
+        region: auto
+        access-key-id: ${CF_R2_ACCESS_KEY_ID}
+        secret-access-key: ${CF_R2_SECRET_ACCESS_KEY}
+        sync-interval: 5s
