@@ -5,8 +5,7 @@ global:
 scrape_configs:
   - job_name: prometheus
     static_configs:
-      - targets:
-        - "localhost:9090"
+      - targets: ["localhost:9090"]
   - job_name: node
     proxy_from_environment: true
     static_configs:
@@ -18,4 +17,7 @@ scrape_configs:
         regex: 'host.containers.internal:(\d+)'
         replacement: "nono:$1"
         target_label: instance
+  - job_name: litestream
+    static_configs:
+      - targets: ["litestream:9090"]
     
