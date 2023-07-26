@@ -14,10 +14,29 @@ scrape_configs:
         - "border:9100"
     relabel_configs:
       - source_labels: [__address__]
-        regex: 'host.containers.internal:(\d+)'
-        replacement: "nono:$1"
+        regex: '(.*):\d+'
+        replacement: "$1"
+        target_label: instance
+      - source_labels: [instance]
+        regex: "host.containers.internal"
+        replacement: "nono"
         target_label: instance
   - job_name: litestream
     static_configs:
       - targets: ["litestream:9090"]
-    
+  - job_name: frr
+    proxy_from_environment: true
+    static_configs:
+      - targets:
+        - "host.containers.internal:9342"
+        - "border:9342"
+    relabel_configs:
+      - source_labels: [__address__]
+        regex: '(.*):\d+'
+        replacement: "$1"
+        target_label: instance
+      - source_labels: [instance]
+        regex: "host.containers.internal"
+        replacement: "nono"
+        target_label: instance
+   
