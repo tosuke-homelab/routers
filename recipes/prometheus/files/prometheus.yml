@@ -9,6 +9,9 @@ scrape_configs:
   - job_name: litestream
     static_configs:
       - targets: ["litestream:9090"]
+  - job_name: cf_tunnel
+    static_configs:
+      - targets: ["cf-tunnel:34237"]
 
   - job_name: node
     proxy_from_environment: true
