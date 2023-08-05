@@ -9,6 +9,10 @@ remote_file "/config/prometheus/prometheus.yml" do
   notifies :run, "execute[restart container prometheus]"
 end
 
+remote_file "/config/prometheus/snmp.yml" do
+  mode "644"
+end
+
 execute "restart container prometheus" do
   action :nothing
   command "/bin/vbash -c 'source /opt/vyatta/etc/functions/script-template; vyatta_cfg_run run restart container prometheus'"
