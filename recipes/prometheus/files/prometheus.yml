@@ -19,6 +19,7 @@ scrape_configs:
       - targets:
         - "host.containers.internal:9100"
         - "border:9100"
+        - "erlite:9100"
     relabel_configs:
       - source_labels: [__address__]
         regex: '(.*):\d+'

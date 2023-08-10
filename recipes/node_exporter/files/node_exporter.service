@@ -1,0 +1,9 @@
+[Unit]
+Description=Node Exporter
+Requires=node_exporter.socket
+
+[Service]
+ExecStart=/usr/sbin/node_exporter --web.systemd-socket
+
+[Install]
+WantedBy=multi-user.target
