@@ -1,0 +1,8 @@
+[Mount]
+What=/config/tailscale/state
+Where=/var/lib/tailscale
+Type=none
+Options=bind
+
+[Install]
+WantedBy=multi-user.target

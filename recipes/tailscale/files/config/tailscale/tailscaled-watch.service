@@ -1,0 +1,8 @@
+[Unit]
+Description=Watch for File Changes and Restart tailscaled
+
+[Service]
+ExecStart=/config/tailscale/tailscaled-watch.sh
+
+[Install]
+WantedBy=multi-user.target
