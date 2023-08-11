@@ -1,0 +1,8 @@
+[Unit]
+Description=Watch for File Changes and Restart BIRD
+
+[Service]
+ExecStart=/config/bird/bird-watch.sh
+
+[Install]
+WantedBy=multi-user.target

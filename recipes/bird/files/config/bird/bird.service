@@ -1,0 +1,13 @@
+[Unit]
+Description=BIRD Internet Routing Daemon
+Wants=network.target
+After=network.target
+
+[Service]
+ExecStartPre=/usr/sbin/bird -p
+ExecReload=/usr/bin/birdc configure
+ExecStart=/usr/sbin/bird -f
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
