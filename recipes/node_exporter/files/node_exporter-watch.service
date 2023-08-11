@@ -1,0 +1,9 @@
+[Unit]
+Description=Watch for File Changes and Restart node_exporter
+
+[Service]
+ExecStart=/config/user-data/node_exporter/watch.sh
+
+[Install]
+WantedBy=multi-user.target
+
