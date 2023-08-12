@@ -1,3 +1,4 @@
+include_recipe "tailscale"
 include_recipe "vyos"
 include_recipe "litestream"
 include_recipe "prometheus"
