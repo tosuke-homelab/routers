@@ -14,7 +14,6 @@ scrape_configs:
       - targets: ["cf-tunnel:34237"]
 
   - job_name: node
-    proxy_from_environment: true
     static_configs:
       - targets:
         - "host.containers.internal:9100"
@@ -59,7 +58,6 @@ scrape_configs:
         replacement: snmp-exporter:9116
 
   - job_name: frr
-    proxy_from_environment: true
     static_configs:
       - targets:
         - "host.containers.internal:9342"
