@@ -12,9 +12,8 @@ remote_file "/config/tailscale/var-lib-tailscale.mount" do
   mode "644"
   notifies :restart, "service[tailscaled]"
 end
-remote_file "/config/tailscale/tailscaled.defaults" do
+remote_file "/config/tailscale/tailscaled.defaults.example" do
   mode "644"
-  notifies :restart, "service[tailscaled]"
 end
 
 remote_file "/config/tailscale/tailscaled-watch.sh" do
@@ -26,6 +25,7 @@ remote_file "/config/tailscale/tailscaled-watch.service" do
   notifies :restart, "service[tailscaled-watch]"
 end
 
+directory "/config/scripts/post-config.d"
 remote_file "/config/scripts/post-config.d/tailscale.sh" do
   mode "755"
 end
