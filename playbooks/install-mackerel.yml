@@ -1,0 +1,9 @@
+---
+- name: Download mackerel binaries
+  hosts: localhost
+  roles:
+    - localhost_mackerel
+- name: Install mackerel
+  hosts: routers
+  roles:
+    - install_mackerel

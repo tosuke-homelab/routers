@@ -1,0 +1,17 @@
+[Unit]
+Description=mackerel.io agent
+Documentation=https://mackerel.io
+After=network-online.target nss-lookup.target
+
+[Service]
+Environment=MACKEREL_PLUGIN_WORKDIR=/var/tmp/mackerel-agent
+Environment=ROOT=/config/mackerel-agent/state
+Environment=CONFIG=/config/mackerel-agent/mackerel-agent.conf
+ExecStartPre=/bin/mkdir -m 777 -p $MACKEREL_PLUGIN_WORKDIR
+ExecStart=/usr/sbin/mackerel-agent supervise --root $ROOT --conf $CONFIG
+ExecReload=/bin/kill -HUP $MAINPID
+LimitNOFILE=65536
+LimitNPROC=65536
+
+[Install]
+WantedBy=multi-user.target

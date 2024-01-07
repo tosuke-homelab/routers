@@ -1,0 +1,5 @@
+---
+- name: reload mackerel-agent
+  service:
+    name: mackerel-agent
+    state: reloaded
