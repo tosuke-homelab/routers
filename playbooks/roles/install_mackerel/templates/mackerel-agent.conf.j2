@@ -1,0 +1,15 @@
+apikey = "{{ mackerel_apikey }}"
+
+roles = [ "network:router" ]
+
+include = "/config/mackerel-agent/conf.d/*.conf"
+
+[host_status]
+on_start = "working"
+on_stop = "poweroff"
+
+[filesystems]
+ignore = "/run/netns/.*|/usr/lib/live/mount/persistence/container/.*"
+
+[interfaces]
+ignore = "veth.*"

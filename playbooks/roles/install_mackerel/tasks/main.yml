@@ -1,0 +1,73 @@
+---
+- name: Bin Directory
+  become: true
+  file:
+    path: /config/user-data/bin
+    state: directory
+    owner: root
+    group: vyattacfg
+    mode: "0775"
+- name: Copy amd64
+  when: ansible_architecture == "x86_64"
+  copy:
+    src: /tmp/routers/mackerel-agent_linux_amd64/mackerel-agent
+    dest: /config/user-data/bin
+    mode: "0755"
+- name: Copy mips
+  when: ansible_architecture == "mips" or ansible_architecture == "mips64"
+  copy:
+    src: /tmp/routers/mackerel-agent_linux_mips/mackerel-agent
+    dest: /config/user-data/bin
+    mode: "0755"
+
+- name: Services Directory
+  become: true
+  file:
+    path: /config/user-data/services
+    state: directory
+    owner: root
+    group: vyattacfg
+    mode: "0775"
+- name: Copy systemd service
+  become: true
+  copy:
+    src: mackerel-agent.service
+    dest: /config/user-data/services/mackerel-agent.service
+    mode: "0644"
+
+- name: Config Directory
+  file:
+    path: /config/mackerel-agent
+    state: directory
+- name: State Directory
+  become: true
+  file:
+    path: /config/mackerel-agent/state
+    state: directory
+    owner: root
+    group: vyattacfg
+    mode: "0775"
+- name: Copy config
+  template:
+    src: mackerel-agent.conf.j2
+    dest: /config/mackerel-agent/mackerel-agent.conf
+    mode: "0644"
+  notify: reload mackerel-agent
+
+- name: Scripts Directory
+  become: true
+  file:
+    path: /config/scripts/post-config.d
+    state: directory
+    owner: root
+    group: vyattacfg
+    mode: "0775"
+- name: Copy Install Script
+  become: true
+  copy:
+    src: install-mackerel-agent.sh
+    dest: /config/scripts/post-config.d/mackerel-agent.sh
+    mode: "0755"
+- name: Run Install Script
+  become: true
+  command: /config/scripts/post-config.d/mackerel-agent.sh

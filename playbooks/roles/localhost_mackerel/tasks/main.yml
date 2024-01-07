@@ -1,0 +1,22 @@
+---
+- name: Dest Directory
+  ansible.builtin.file:
+    path: /tmp/routers
+    state: directory
+- name: Download mackerel binaries
+  ansible.builtin.get_url:
+    url: https://github.com/mackerelio/mackerel-agent/releases/download/v0.78.3/mackerel-agent_linux_{{ item['arch'] }}.tar.gz
+    dest: /tmp/routers/mackerel-agent_linux_{{ item['arch'] }}.tar.gz
+    checksum: "{{ item['checksum'] }}"
+  loop:
+    - arch: amd64
+      checksum: sha256:e98c57470eb57bdb13d2cd7b650352b61438a98e27643d7a363b60b90a406dba
+    - arch: mips
+      checksum: sha256:edb05afbaad46805e2714bc90dbee87eee01f62f314119238ba17ac35fc100d5
+- name: Unarchive mackerel binaries
+  ansible.builtin.unarchive:
+    src: /tmp/routers/mackerel-agent_linux_{{ item }}.tar.gz
+    dest: /tmp/routers
+  loop:
+    - amd64
+    - mips
