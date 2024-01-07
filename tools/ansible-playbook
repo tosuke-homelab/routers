@@ -1,0 +1,4 @@
+#!/bin/sh
+# vim: ft=sh :
+
+rye run ansible-playbook -i hosts.yml "$@"
